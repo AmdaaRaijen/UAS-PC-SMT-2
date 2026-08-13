@@ -11,6 +11,30 @@ def tampilkan_data_mahasiswa(data_mahasiswa):
     for mahasiswa in data_mahasiswa:
         print(f"{mahasiswa['nim']:<10}{mahasiswa['nama']:<10}{mahasiswa['ipk']:.2f}")
 
+def urutkan_mahasiswa_berdasarkan_ipk(data_mahasiswa):
+    data_terurut = data_mahasiswa.copy()
+    jumlah_data = len(data_terurut)
+ 
+    for indeks_awal in range(jumlah_data - 1):
+        indeks_ipk_terbesar = indeks_awal
+        for indeks_pembanding in range(indeks_awal + 1, jumlah_data):
+            if data_terurut[indeks_pembanding]["ipk"] > data_terurut[indeks_ipk_terbesar]["ipk"]:
+                indeks_ipk_terbesar = indeks_pembanding
+ 
+        if indeks_ipk_terbesar != indeks_awal:
+            data_terurut[indeks_awal], data_terurut[indeks_ipk_terbesar] = (
+                data_terurut[indeks_ipk_terbesar],
+                data_terurut[indeks_awal],
+            )
+ 
+    return data_terurut
+ 
+ 
+def jalankan_menu_sorting():
+    print("\nData Mahasiswa Setelah Sorting IPK:")
+    data_terurut = urutkan_mahasiswa_berdasarkan_ipk(daftar_mahasiswa)
+    tampilkan_data_mahasiswa(data_terurut)
+
 def tampilkan_menu_utama():
     print("\n===== MENU PENGELOLAAN DATA MAHASISWA =====")
     print("1. Tampilkan Data")
@@ -30,8 +54,7 @@ def main():
             print("\nData Mahasiswa:")
             tampilkan_data_mahasiswa(daftar_mahasiswa)
         elif pilihan_menu == "2":
-            # todo: do shorting
-            print("\nShorting")
+            jalankan_menu_sorting()
         elif pilihan_menu == "3":
             print("\nSearching")
             # todo: searching
