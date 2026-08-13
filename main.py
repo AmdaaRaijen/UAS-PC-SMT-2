@@ -1,3 +1,16 @@
+daftar_mahasiswa = [
+    {"nim": 231001, "nama": "Andi", "ipk": 3.75},
+    {"nim": 231002, "nama": "Budi", "ipk": 3.20},
+    {"nim": 231003, "nama": "Citra", "ipk": 3.90},
+    {"nim": 231004, "nama": "Deni", "ipk": 3.45},
+    {"nim": 231005, "nama": "Eka", "ipk": 3.80},
+]
+ 
+def tampilkan_data_mahasiswa(data_mahasiswa):
+    print(f"{'NIM':<10}{'Nama':<10}{'IPK':<5}")
+    for mahasiswa in data_mahasiswa:
+        print(f"{mahasiswa['nim']:<10}{mahasiswa['nama']:<10}{mahasiswa['ipk']:.2f}")
+
 def tampilkan_menu_utama():
     print("\n===== MENU PENGELOLAAN DATA MAHASISWA =====")
     print("1. Tampilkan Data")
@@ -15,7 +28,7 @@ def main():
  
         if pilihan_menu == "1":
             print("\nData Mahasiswa:")
-            # todo: show data
+            tampilkan_data_mahasiswa(daftar_mahasiswa)
         elif pilihan_menu == "2":
             # todo: do shorting
             print("\nShorting")
