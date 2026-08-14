@@ -28,6 +28,30 @@ def urutkan_mahasiswa_berdasarkan_ipk(data_mahasiswa):
             )
  
     return data_terurut
+
+def cari_mahasiswa_berdasarkan_nim(data_mahasiswa, nim_dicari):
+    for mahasiswa in data_mahasiswa:
+        if mahasiswa["nim"] == nim_dicari:
+            return mahasiswa
+    return None
+ 
+ 
+def jalankan_menu_searching():
+    nim_input = input("Masukkan NIM: ").strip()
+    if not nim_input.isdigit():
+        print("NIM harus berupa angka.")
+        return
+ 
+    nim_dicari = int(nim_input)
+    mahasiswa_ditemukan = cari_mahasiswa_berdasarkan_nim(daftar_mahasiswa, nim_dicari)
+ 
+    if mahasiswa_ditemukan:
+        print("\nData ditemukan")
+        print(f"NIM : {mahasiswa_ditemukan['nim']}")
+        print(f"Nama : {mahasiswa_ditemukan['nama']}")
+        print(f"IPK : {mahasiswa_ditemukan['ipk']:.2f}")
+    else:
+        print("\nData mahasiswa tidak ditemukan")
  
  
 def jalankan_menu_sorting():
@@ -56,8 +80,7 @@ def main():
         elif pilihan_menu == "2":
             jalankan_menu_sorting()
         elif pilihan_menu == "3":
-            print("\nSearching")
-            # todo: searching
+            jalankan_menu_searching()
         elif pilihan_menu == "4":
             print("\nHash Table")
             # todo: hash table
