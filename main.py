@@ -150,6 +150,75 @@ def jalankan_menu_hashing():
     else:
         print("Pilihan tidak valid.")
 
+class NodeBST:
+    def __init__(self, nilai):
+        self.nilai = nilai
+        self.kiri = None
+        self.kanan = None
+ 
+ 
+class BinarySearchTree:
+    def __init__(self):
+        self.akar = None
+ 
+    def masukkan_data(self, nilai):
+        self.akar = self._masukkan_rekursif(self.akar, nilai)
+ 
+    def _masukkan_rekursif(self, node_sekarang, nilai):
+        if node_sekarang is None:
+            return NodeBST(nilai)
+ 
+        if nilai < node_sekarang.nilai:
+            node_sekarang.kiri = self._masukkan_rekursif(node_sekarang.kiri, nilai)
+        elif nilai > node_sekarang.nilai:
+            node_sekarang.kanan = self._masukkan_rekursif(node_sekarang.kanan, nilai)
+ 
+        return node_sekarang
+ 
+    def inorder_traversal(self):
+        hasil_traversal = []
+        self._inorder_rekursif(self.akar, hasil_traversal)
+        return hasil_traversal
+ 
+    def _inorder_rekursif(self, node_sekarang, hasil_traversal):
+        if node_sekarang is not None:
+            self._inorder_rekursif(node_sekarang.kiri, hasil_traversal)
+            hasil_traversal.append(node_sekarang.nilai)
+            self._inorder_rekursif(node_sekarang.kanan, hasil_traversal)
+ 
+    def cari_data(self, nilai_dicari):
+        return self._cari_rekursif(self.akar, nilai_dicari)
+ 
+    def _cari_rekursif(self, node_sekarang, nilai_dicari):
+        if node_sekarang is None:
+            return False
+        if node_sekarang.nilai == nilai_dicari:
+            return True
+        if nilai_dicari < node_sekarang.nilai:
+            return self._cari_rekursif(node_sekarang.kiri, nilai_dicari)
+        return self._cari_rekursif(node_sekarang.kanan, nilai_dicari)
+ 
+ 
+bst_nim = BinarySearchTree()
+for nilai_nim in [50, 30, 70, 20, 40, 60, 80]:
+    bst_nim.masukkan_data(nilai_nim)
+ 
+ 
+def jalankan_menu_tree():
+    hasil_inorder = bst_nim.inorder_traversal()
+    print("\nInorder Traversal:")
+    print(" ".join(str(nilai) for nilai in hasil_inorder))
+ 
+    nilai_input = input("\nMasukkan nilai yang dicari: ").strip()
+    if nilai_input.isdigit():
+        nilai_dicari = int(nilai_input)
+        if bst_nim.cari_data(nilai_dicari):
+            print("Data ditemukan")
+        else:
+            print("Data tidak ditemukan")
+    else:
+        print("Nilai harus berupa angka.")        
+
 def main():
     while True:
         tampilkan_menu_utama()
@@ -165,7 +234,7 @@ def main():
         elif pilihan_menu == "4":
             jalankan_menu_hashing()
         elif pilihan_menu == "5":
-            print("\nTree")
+            jalankan_menu_tree()
             # todo: tree
         elif pilihan_menu == "6":
             print("\nGraph")
