@@ -69,6 +69,87 @@ def tampilkan_menu_utama():
     print("6. Graph")
     print("7. Keluar")
 
+
+class TabelHashNIM:
+    def __init__(self, ukuran=10):
+        self.ukuran = ukuran
+        self.tabel = [None] * ukuran
+ 
+    def hitung_index(self, nim):
+        return nim % self.ukuran
+ 
+    def insert_nim(self, nim):
+        index_awal = self.hitung_index(nim)
+        index_sekarang = index_awal
+ 
+        for _ in range(self.ukuran):
+            if self.tabel[index_sekarang] is None:
+                self.tabel[index_sekarang] = nim
+                print(f"NIM {nim} disimpan pada index {index_sekarang}")
+                return True
+            if self.tabel[index_sekarang] == nim:
+                print(f"NIM {nim} sudah ada pada index {index_sekarang}")
+                return False
+            index_sekarang = (index_sekarang + 1) % self.ukuran
+ 
+        print("Hash table penuh, gagal menyimpan NIM", nim)
+        return False
+ 
+    def search_nim(self, nim):
+        index_awal = self.hitung_index(nim)
+        index_sekarang = index_awal
+ 
+        for _ in range(self.ukuran):
+            if self.tabel[index_sekarang] is None:
+                return None
+            if self.tabel[index_sekarang] == nim:
+                return index_sekarang
+            index_sekarang = (index_sekarang + 1) % self.ukuran
+ 
+        return None
+ 
+    def tampilkan_tabel(self):
+        print("\nIsi Hash Table:")
+        for index in range(self.ukuran):
+            isi = self.tabel[index] if self.tabel[index] is not None else "-"
+            print(f"Index {index} : {isi}")
+ 
+ 
+tabel_hash_nim = TabelHashNIM(ukuran=10)
+for mahasiswa in daftar_mahasiswa:
+    tabel_hash_nim.insert_nim(mahasiswa["nim"])
+ 
+ 
+def jalankan_menu_hashing():
+    print("\n1. Insert NIM")
+    print("2. Search NIM")
+    print("3. Tampilkan Hash Table")
+    pilihan = input("Pilih aksi: ").strip()
+ 
+    if pilihan == "1":
+        nim_input = input("Masukkan NIM baru: ").strip()
+        if nim_input.isdigit():
+            tabel_hash_nim.insert_nim(int(nim_input))
+        else:
+            print("NIM harus berupa angka.")
+ 
+    elif pilihan == "2":
+        nim_input = input("Masukkan NIM yang dicari: ").strip()
+        if nim_input.isdigit():
+            hasil_index = tabel_hash_nim.search_nim(int(nim_input))
+            if hasil_index is not None:
+                print(f"Data ditemukan pada index {hasil_index}")
+            else:
+                print("Data tidak ditemukan")
+        else:
+            print("NIM harus berupa angka.")
+ 
+    elif pilihan == "3":
+        tabel_hash_nim.tampilkan_tabel()
+ 
+    else:
+        print("Pilihan tidak valid.")
+
 def main():
     while True:
         tampilkan_menu_utama()
@@ -82,8 +163,7 @@ def main():
         elif pilihan_menu == "3":
             jalankan_menu_searching()
         elif pilihan_menu == "4":
-            print("\nHash Table")
-            # todo: hash table
+            jalankan_menu_hashing()
         elif pilihan_menu == "5":
             print("\nTree")
             # todo: tree
