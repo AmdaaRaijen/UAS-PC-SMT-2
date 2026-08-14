@@ -208,6 +208,7 @@ def jalankan_menu_tree():
             print("Data tidak ditemukan")
     else:
         print("Nilai harus berupa angka.")
+
 graph_pertemanan = {
     "Andi": ["Budi", "Citra"],
     "Budi": ["Andi", "Deni"],
@@ -290,10 +291,8 @@ def main():
             jalankan_menu_hashing()
         elif pilihan_menu == "5":
             jalankan_menu_tree()
-            # todo: tree
         elif pilihan_menu == "6":
             jalankan_menu_graph()
-            # todo: graph
         elif pilihan_menu == "7":
             print("Program selesai. Terima kasih.")
             break
