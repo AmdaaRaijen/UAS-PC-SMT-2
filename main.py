@@ -29,6 +29,11 @@ def urutkan_mahasiswa_berdasarkan_ipk(data_mahasiswa):
  
     return data_terurut
 
+def jalankan_menu_sorting():
+    print("\nData Mahasiswa Setelah Sorting IPK:")
+    data_terurut = urutkan_mahasiswa_berdasarkan_ipk(daftar_mahasiswa)
+    tampilkan_data_mahasiswa(data_terurut)
+
 def cari_mahasiswa_berdasarkan_nim(data_mahasiswa, nim_dicari):
     for mahasiswa in data_mahasiswa:
         if mahasiswa["nim"] == nim_dicari:
@@ -53,11 +58,6 @@ def jalankan_menu_searching():
     else:
         print("\nData mahasiswa tidak ditemukan")
  
- 
-def jalankan_menu_sorting():
-    print("\nData Mahasiswa Setelah Sorting IPK:")
-    data_terurut = urutkan_mahasiswa_berdasarkan_ipk(daftar_mahasiswa)
-    tampilkan_data_mahasiswa(data_terurut)
 
 
 class TabelHashNIM:
