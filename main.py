@@ -59,16 +59,6 @@ def jalankan_menu_sorting():
     data_terurut = urutkan_mahasiswa_berdasarkan_ipk(daftar_mahasiswa)
     tampilkan_data_mahasiswa(data_terurut)
 
-def tampilkan_menu_utama():
-    print("\n===== MENU PENGELOLAAN DATA MAHASISWA =====")
-    print("1. Tampilkan Data")
-    print("2. Sorting")
-    print("3. Searching")
-    print("4. Hashing")
-    print("5. Tree")
-    print("6. Graph")
-    print("7. Keluar")
-
 
 class TabelHashNIM:
     def __init__(self, ukuran=10):
@@ -217,7 +207,72 @@ def jalankan_menu_tree():
         else:
             print("Data tidak ditemukan")
     else:
-        print("Nilai harus berupa angka.")        
+        print("Nilai harus berupa angka.")
+graph_pertemanan = {
+    "Andi": ["Budi", "Citra"],
+    "Budi": ["Andi", "Deni"],
+    "Citra": ["Andi", "Eka"],
+    "Deni": ["Budi", "Eka"],
+    "Eka": ["Citra", "Deni"],
+}
+ 
+ 
+def bfs_graph(graph, node_awal):
+    node_dikunjungi = []
+    node_sudah_dilihat = {node_awal}
+    antrian = [node_awal]
+ 
+    while antrian:
+        node_sekarang = antrian.pop(0)
+        node_dikunjungi.append(node_sekarang)
+ 
+        for tetangga in graph[node_sekarang]:
+            if tetangga not in node_sudah_dilihat:
+                node_sudah_dilihat.add(tetangga)
+                antrian.append(tetangga)
+ 
+    return node_dikunjungi
+ 
+ 
+def dfs_graph(graph, node_awal, node_sudah_dilihat=None, node_dikunjungi=None):
+    if node_sudah_dilihat is None:
+        node_sudah_dilihat = set()
+    if node_dikunjungi is None:
+        node_dikunjungi = []
+ 
+    node_sudah_dilihat.add(node_awal)
+    node_dikunjungi.append(node_awal)
+ 
+    for tetangga in graph[node_awal]:
+        if tetangga not in node_sudah_dilihat:
+            dfs_graph(graph, tetangga, node_sudah_dilihat, node_dikunjungi)
+ 
+    return node_dikunjungi
+ 
+ 
+def jalankan_menu_graph():
+    print("\nAdjacency List:")
+    for nama_mahasiswa, teman_list in graph_pertemanan.items():
+        print(f"{nama_mahasiswa} : {', '.join(teman_list)}")
+ 
+    hasil_bfs = bfs_graph(graph_pertemanan, "Andi")
+    hasil_dfs = dfs_graph(graph_pertemanan, "Andi")
+ 
+    print("\nHasil BFS dari Andi:")
+    print(" -> ".join(hasil_bfs))
+ 
+    print("\nHasil DFS dari Andi:")
+    print(" -> ".join(hasil_dfs))
+
+def tampilkan_menu_utama():
+    print("\n===== MENU PENGELOLAAN DATA MAHASISWA =====")
+    print("1. Tampilkan Data")
+    print("2. Sorting")
+    print("3. Searching")
+    print("4. Hashing")
+    print("5. Tree")
+    print("6. Graph")
+    print("7. Keluar")
 
 def main():
     while True:
@@ -237,7 +292,7 @@ def main():
             jalankan_menu_tree()
             # todo: tree
         elif pilihan_menu == "6":
-            print("\nGraph")
+            jalankan_menu_graph()
             # todo: graph
         elif pilihan_menu == "7":
             print("Program selesai. Terima kasih.")
